@@ -1,0 +1,53 @@
+@{
+    ViewBag.Title = "Adăugare rețetă";
+}
+
+<h2>Adăugare rețetă</h2>
+<br />
+
+@if (ViewBag.Categories.Count == 0)
+{
+    <p>Nu există nicio categorie. <a href="/Categories/New">Adaugă mai întâi o categorie</a>.</p>
+}
+else
+{
+    @* name-urile câmpurilor trebuie să coincidă cu numele proprietăților din Model (model binding) *@
+    <form method="post" action="/Recipes/New">
+
+        <label>Titlul rețetei</label>
+        <input class="form-control mb-3" type="text" name="Title" />
+
+        <label>Descriere scurtă</label>
+        <textarea class="form-control mb-3" name="Description" rows="2"></textarea>
+
+        <label>Ingrediente (câte unul pe rând)</label>
+        <textarea class="form-control mb-3" name="Ingredients" rows="5"></textarea>
+
+        <label>Mod de preparare</label>
+        <textarea class="form-control mb-3" name="Instructions" rows="6"></textarea>
+
+        <label>Timp de preparare (minute)</label>
+        <input class="form-control mb-3" type="number" min="0" name="PrepTimeMinutes" />
+
+        <label>Număr de porții</label>
+        <input class="form-control mb-3" type="number" min="1" name="Servings" />
+
+        <label>Selectați categoria</label>
+
+        @*
+        name="CategoryId" este atributul trimis către Controller prin POST
+        value conține id-ul categoriei, iar în dropdown se afișează numele categoriei
+        *@
+        <select class="form-select mb-3" name="CategoryId">
+
+            @foreach (var item in ViewBag.Categories)
+            {
+                <option value="@item.Id">@item.CategoryName</option>
+            }
+
+        </select>
+
+        <button class="btn btn-success" type="submit">Adaugă rețeta</button>
+
+    </form>
+}

@@ -1,0 +1,49 @@
+@{
+    ViewBag.Title = "Editare rețetă";
+}
+
+<h2>Editare rețetă</h2>
+<br />
+
+<form method="post" action="/Recipes/Edit/@ViewBag.Recipe.Id">
+
+    <label>Titlul rețetei</label>
+    <input class="form-control mb-3" type="text" name="Title" value="@ViewBag.Recipe.Title" />
+
+    <label>Descriere scurtă</label>
+    <textarea class="form-control mb-3" name="Description" rows="2">@ViewBag.Recipe.Description</textarea>
+
+    <label>Ingrediente (câte unul pe rând)</label>
+    <textarea class="form-control mb-3" name="Ingredients" rows="5">@ViewBag.Recipe.Ingredients</textarea>
+
+    <label>Mod de preparare</label>
+    <textarea class="form-control mb-3" name="Instructions" rows="6">@ViewBag.Recipe.Instructions</textarea>
+
+    <label>Timp de preparare (minute)</label>
+    <input class="form-control mb-3" type="number" min="0" name="PrepTimeMinutes" value="@ViewBag.Recipe.PrepTimeMinutes" />
+
+    <label>Număr de porții</label>
+    <input class="form-control mb-3" type="number" min="1" name="Servings" value="@ViewBag.Recipe.Servings" />
+
+    <label>Selectați categoria</label>
+
+    @* categoria curentă a rețetei apare preselectată în dropdown *@
+    <select class="form-select mb-3" name="CategoryId">
+
+        @foreach (var item in ViewBag.Categories)
+        {
+            if (item.Id == ViewBag.Recipe.CategoryId)
+            {
+                <option value="@item.Id" selected>@item.CategoryName</option>
+            }
+            else
+            {
+                <option value="@item.Id">@item.CategoryName</option>
+            }
+        }
+
+    </select>
+
+    <button class="btn btn-success" type="submit">Modifică rețeta</button>
+
+</form>

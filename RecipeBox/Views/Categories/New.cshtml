@@ -1,0 +1,14 @@
+@{
+    ViewBag.Title = "Adăugare categorie";
+}
+
+<h2>Adăugare categorie</h2>
+
+<form method="post" action="/Categories/New">
+
+    <label>Numele categoriei</label>
+    <br />
+    <input type="text" name="CategoryName" />
+    <br /><br />
+    <button class="btn btn-success" type="submit">Adaugă categoria</button>
+</form>

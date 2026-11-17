@@ -1,0 +1,122 @@
+@* Afișarea unei rețete, împreună cu categoria din care face parte și cu recenziile ei *@
+@{
+    ViewBag.Title = "Afișare rețetă";
+}
+
+<div class="d-flex justify-content-center gap-2">
+
+    <a class="btn btn-outline-success" href="/Recipes/Index">Afișare rețete</a>
+
+    <a class="btn btn-outline-success" href="/Recipes/New">Adaugă rețetă</a>
+
+</div>
+
+<br />
+
+<div class="card">
+
+    <div class="card-body">
+
+        <h3 class="card-title alert-success py-3 px-3 rounded-2">@ViewBag.Recipe.Title</h3>
+
+        <div class="card-text">@ViewBag.Recipe.Description</div>
+
+        <div class="d-flex justify-content-between flex-row mt-4">
+
+            <div><i class="bi bi-tag"></i> @ViewBag.Category.CategoryName</div>
+
+            <div><i class="bi bi-clock"></i> @ViewBag.Recipe.PrepTimeMinutes min</div>
+
+            <div><i class="bi bi-people"></i> @ViewBag.Recipe.Servings porții</div>
+
+        </div>
+
+        <hr />
+
+        @* white-space: pre-line păstrează rândurile noi scrise în formular *@
+        <h5>Ingrediente</h5>
+        <div style="white-space: pre-line">@ViewBag.Recipe.Ingredients</div>
+
+        <br />
+
+        <h5>Mod de preparare</h5>
+        <div style="white-space: pre-line">@ViewBag.Recipe.Instructions</div>
+
+    </div>
+
+    <hr />
+
+    <div class="d-flex flex-row justify-content-between px-3 pb-3">
+
+        <a class="btn btn-success" href="/Recipes/Edit/@ViewBag.Recipe.Id">Editează rețeta</a>
+
+        <form method="post" action="/Recipes/Delete/@ViewBag.Recipe.Id">
+
+            <button class="btn btn-danger" type="submit">Șterge rețeta</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<br />
+<br />
+
+@* Afișarea recenziilor, împreună cu butoanele de editare și ștergere *@
+<h4>Recenzii</h4>
+<br />
+
+@foreach (var review in ViewBag.Recipe.Reviews)
+{
+    <div class="card mb-3">
+
+        <div class="card-body">
+
+            <div style="white-space: pre-line">@review.Content</div>
+
+            <div class="d-flex justify-content-between flex-row mt-3">
+
+                <span class="text-muted"><i class="bi bi-calendar"></i> @review.Date.ToString("dd.MM.yyyy HH:mm")</span>
+
+                <div class="d-flex gap-2">
+
+                    <a class="btn btn-sm btn-outline-success" href="/Reviews/Edit/@review.Id">Editează</a>
+
+                    <form method="post" action="/Reviews/Delete/@review.Id">
+
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Șterge</button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+}
+
+@if (ViewBag.Recipe.Reviews.Count == 0)
+{
+    <p class="text-muted">Nu există încă nicio recenzie pentru această rețetă.</p>
+}
+
+<br />
+
+@* Afișarea formularului în care se poate adăuga o recenzie *@
+<h5>Adaugă o recenzie</h5>
+
+<form method="post" action="/Reviews/New">
+
+    @* id-ul rețetei se trimite ascuns; name trebuie să fie exact RecipeId (model binding) *@
+    <input type="hidden" name="RecipeId" value="@ViewBag.Recipe.Id" />
+
+    <textarea class="form-control mb-3" name="Content" rows="3" placeholder="Scrie recenzia ta..."></textarea>
+
+    <button class="btn btn-success" type="submit">Adaugă recenzia</button>
+
+</form>
+
+<br />

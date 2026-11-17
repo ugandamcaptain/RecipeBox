@@ -1,0 +1,22 @@
+@{
+    ViewBag.Title = "Afișare categorie";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<br />
+
+<p>@ViewBag.Category.CategoryName</p>
+
+@* La ștergerea categoriei se șterg și rețetele din categoria respectivă *@
+<form method="post" action="/Categories/Delete/@ViewBag.Category.Id">
+
+    <button class="btn btn-danger" type="submit">Șterge categoria</button>
+
+</form>
+<br />
+<a class="btn alert-success" href="/Categories/Index">Afișare listă categorii</a>
+
+<br />
+<hr />
+<br />

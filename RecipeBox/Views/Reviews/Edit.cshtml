@@ -1,0 +1,17 @@
+@{
+    ViewBag.Title = "Editare recenzie";
+}
+
+<h2>Editare recenzie</h2>
+<br />
+
+<form method="post" action="/Reviews/Edit/@ViewBag.Review.Id">
+
+    <label>Conținutul recenziei</label>
+    <textarea class="form-control mb-3" name="Content" rows="4">@ViewBag.Review.Content</textarea>
+
+    <button class="btn btn-success" type="submit">Modifică recenzia</button>
+
+    <a class="btn btn-outline-secondary" href="/Recipes/Show/@ViewBag.Review.RecipeId">Renunță</a>
+
+</form>

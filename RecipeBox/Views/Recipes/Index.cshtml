@@ -1,0 +1,46 @@
+@{
+    ViewBag.Title = "Rețete";
+}
+
+<h2 class="text-center">Rețetele mele</h2>
+<br />
+
+<div class="d-flex justify-content-center gap-2">
+
+    <a class="btn btn-outline-success" href="/Categories/Index">Afișare categorii</a>
+
+    <a class="btn btn-outline-success" href="/Recipes/New">Adaugă rețetă</a>
+
+</div>
+
+<br />
+
+@foreach (var recipe in ViewBag.Recipes)
+{
+    <div class="card">
+
+        <div class="card-body">
+
+            <h3 class="card-title alert-success py-3 px-3 rounded-2">@recipe.Title</h3>
+
+            <div class="card-text">@recipe.Description</div>
+
+            <div class="d-flex justify-content-between flex-row mt-5">
+
+                <div><i class="bi bi-tag"></i> @recipe.Category.CategoryName</div>
+
+                <div><i class="bi bi-clock"></i> @recipe.PrepTimeMinutes min</div>
+
+                <div><i class="bi bi-people"></i> @recipe.Servings porții</div>
+
+                <a class="btn btn-success" href="/Recipes/Show/@recipe.Id">Afișare rețetă</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br />
+    <br />
+}
